@@ -22,18 +22,37 @@ body {
     overflow: hidden;
 }
 
+.title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    margin-top: -20vh;
+}
+
+.home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 450px;
+    margin-top: 0vh;
+}
+
 .logo-container {
     display: flex;
     align-items: center;
     justify-content: center;
 
     width: 100%;
+    margin-bottom: 10vh;
 }
 
 .main-title {
     position: relative;
-    width: 90%;
-    max-width: 400px;
+    width: 85%;
+    max-width: 500px;
     display: flex;
     justify-content: center;
 }
@@ -79,7 +98,7 @@ body {
 
 .mc-button {
     flex: 1;
-    height: 44px;
+    height: 3rem;
     background-color: #707070;
     border: 4px solid #000000;
     outline: none;
