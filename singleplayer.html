@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minetype | singleplayer mode</title>
+    <link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="singleplayer_style.css">
+    <script src="singleplayer_app.js" defer></script>
+</head>
+<body>
+    <div id="mc-app">
+        <div id="mode-bar">
+            <button class="mc-btn active" data-mode="words" data-val="25">25 words</button>
+            <button class="mc-btn" data-mode="words" data-val="50">50 words</button>
+            <button class="mc-btn" data-mode="time" data-val="30">30s</button>
+            <button class="mc-btn" data-mode="time" data-val="60">60s</button>
+        </div>
+        <div id="stats-bar">
+            <div class="stat-block">
+                <span class="stat-label">wpm</span>
+                <span class="stat-val" id="wpn-live">-</span><span class="stat-unit">.</span>
+            </div>
+            <div class="stat-block">
+                <span class="stat-label">acc</span>
+                <span class="stat-val" id="acc-live">-</span><span class="stat-unit">%</span>
+            </div>
+            <div class="stat-block">
+                <span class="stat-label">time</span>
+                <span class="stat-val" id="time-live">-</span><span class="stat-unit">s</span>
+            </div>
+        </div>
+        <div id="progress-wrap"><div id="progress-fill"></div></div>
+        <div id="typing-area">
+            <div id="word-display" tabindex="0">
+                <div id="words-wrap"></div>
+                <div id="caret"></div>
+            </div>
+        </div>
+        <div id="bottom-bar">
+            <button class="mc-btn" id="restart-btn"><i class="ph ph-arrow-clockwise"></i> respawn</button>
+            <span class="hint-text">tab = respawn &nbsp;|&nbsp; click area to start</span>
+        </div>
+    </div>
+
+    <div id="result-screen">
+        <div id="result-title"><i class="ph-fill ph-star"></i> test complete <i class="ph-fill ph-star"></i></div>
+        <div class="result-grid">
+            <div class="result-card"><span class="r-label">wpm</span><span class="r-val" id="r-wpm">0</span></div>
+            <div class="result-card"><span class="r-label">accuracy</span><span class="r-val" id="r-acc">0</span><span class="r-unit">%</span></div>
+            <div class="result-card"><span class="r-label">correct</span><span class="r-val" id="r-correct">0</span></div>
+            <div class="result-card"><span class="r-label">errors</span><span class="r-val" id="r-errors">0</span></div>
+        </div>
+        <div style="text-align:center">
+            <button class="mc-btn" id="play-again-btn" style="font-size:9px;padding:8px 16px;color:var(--mc-yellow);border-color:var(--mc-gold)">► play again</button>
+        </div>
+    </div>
+    <input id="hidden-input" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-hidden="true">
+</body>
+</html>
