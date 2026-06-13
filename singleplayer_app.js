@@ -65,6 +65,15 @@ const resultScreen = document.getElementById('result-screen');
 const mcApp = document.getElementById('mc-app');
 
 
+document.querySelectorAll('.mc-btn[data-mode]').forEach( btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.mc-btn[data-mode').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        S.mode = btn.dataset.mode;
+        S.modeVal = parseInt(btn.dataset.val);
+    });
+});
+
 
 function initTest() {
     clearInterval(S.timerInterval);
