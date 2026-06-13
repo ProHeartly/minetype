@@ -170,7 +170,6 @@
 
 .letter.extra {
     color: var(--mc-red);
-    font-size: 1.48em;
 }
 
 .letter.pending {
@@ -184,12 +183,14 @@
     background: var(--mc-white);
     pointer-events: none;
     opacity: 0;
-    animation: mc-blink .7s step-end infinite;
 }
 
 #caret.active {
     opacity: 1;
-    animation: mc-blink .7s step-end  infinite;
+}
+
+#caret.blink {
+    animation: mc-blink .7s step-end infinite;
 }
 
 @keyframes mc-blink {

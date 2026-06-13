@@ -71,6 +71,7 @@ document.querySelectorAll('.mc-btn[data-mode]').forEach( btn => {
         btn.classList.add('active');
         S.mode = btn.dataset.mode;
         S.modeVal = parseInt(btn.dataset.val);
+        initTest();
     });
 });
 
@@ -87,6 +88,7 @@ function initTest() {
         started: false,
         finished: false,
         startTime: null,
+        blinkTimeout: null,
         timerLeft: 30,
         timerInterval: null,
         totalKS: 0,
@@ -145,7 +147,7 @@ function positionCaret() {
         refEl = baseLetters[0];
         afterRef = false;
     } else if (typed.length > baseLetters.length && extras.length) {
-        refEl = extras[extras.length-1];
+        refEl = extras[extras.length - 1];
     } else {
         refEl = baseLetters[Math.min(typed.length - 1, baseLetters.length - 1)];
     }
@@ -156,25 +158,38 @@ function positionCaret() {
     }
 
     const wr = wordDisplay.getBoundingClientRect();
-    const r = refEl.getBoundingClientRect();
-    const x = afterRef? (r.left - wr.left + r.width): (r.left - wr.left);
-    const y = r.top - wr.top + wordDisplay.scrollTop;
+    const scrolled = scrollToLine(wordEl, wr);
 
-    caretEl.style.left=x+'px';
-    caretEl.style.top=y+'px';
-    caretEl.style.opacity='1';
-    caretEl.classList.add('active');
-    scrollToLine(wordEl, wr);
+    function applyCaret() {
+        const wr2 = wordDisplay.getBoundingClientRect();
+        const r = refEl.getBoundingClientRect();
+        const x = afterRef ? (r.left - wr2.left + r.width): (r.left - wr2.left);
+        const y = r.top - wr2.top;
+
+        caretEl.style.left = x + 'px';
+        caretEl.style.top = y + 'px';
+        caretEl.style.opacity = '1';
+        caretEl.classList.add('active');
+        caretEl.classList.add('blink');
+    }
+
+    if (scrolled) {
+        requestAnimationFrame(applyCaret);
+    } else {
+        applyCaret();    
+    }
 }
 
 function scrollToLine(wordEl, wr) {
     const r = wordEl.getBoundingClientRect();
     const relTop = r.top - wr.top;
 
-    if (relTop > r.height * 2.2) {
+    if (relTop > r.height + 5) {
         const cur = parseFloat(wordsWrap.style.transform.replace('translateY(','')) || 0;
-        wordsWrap.style.transform = `translateY(${cur - (relTop - r.height * 1.1)}px)`;
+        wordsWrap.style.transform = `translateY(${cur - relTop}px)`;
+        return true;
     }
+    return false;
 }
 
 function updateLetterDisplay() {
@@ -200,7 +215,7 @@ function updateLetterDisplay() {
 
     if (typed.length > word.length) {
         typed.slice(word.length).forEach(ch => {
-            const s = document.createElement('spam');
+            const s = document.createElement('span');
             s.className = 'letter extra wrong';
             s.textContent = ch;
             wordEl.appendChild(s);
@@ -368,6 +383,9 @@ function handleInput() {
         return;
     }
 
+    caretEl.classList.remove('blink');
+    clearTimeout(S.blinkTimeout);
+    S.blinkTimeout = setTimeout(() => caretEl.classList.add('blink'), 500);
     const val = hiddenInput.value;
     const wi = S.currentWord;
     const word = S.words[wi];
@@ -421,6 +439,10 @@ function handleKeyDown(e) {
         }
         return;
     }
+
+    caretEl.classList.remove('blink');
+    clearTimeout(S.blinkTimeout);
+    S.blinkTimeout = setTimeout(() => caretEl.classList.add('blink'), 500);
 
     if (!S.started && e.key.length === 1) {
         startTest();
