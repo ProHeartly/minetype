@@ -22,13 +22,13 @@
         <div id="stats-bar">
             <div class="stat-block">
                 <span class="stat-label">wpm</span>
-                <span class="stat-val" id="wpn-live">-</span><span class="stat-unit">.</span>
+                <span class="stat-val" id="wpm-live">-</span><span class="stat-unit">.</span>
             </div>
             <div class="stat-block">
                 <span class="stat-label">acc</span>
                 <span class="stat-val" id="acc-live">-</span><span class="stat-unit">%</span>
             </div>
-            <div class="stat-block">
+            <div class="stat-block" id="timer-wrap" style="display: none;">
                 <span class="stat-label">time</span>
                 <span class="stat-val" id="time-live">-</span><span class="stat-unit">s</span>
             </div>
@@ -50,12 +50,12 @@
         <div id="result-title"><i class="ph-fill ph-star"></i> test complete <i class="ph-fill ph-star"></i></div>
         <div class="result-grid">
             <div class="result-card"><span class="r-label">wpm</span><span class="r-val" id="r-wpm">0</span></div>
-            <div class="result-card"><span class="r-label">accuracy</span><span class="r-val" id="r-acc">0</span><span class="r-unit">%</span></div>
+            <div class="result-card"><span class="r-label">accuracy</span><span class="r-val" id="r-acc">0</span></div>
             <div class="result-card"><span class="r-label">correct</span><span class="r-val" id="r-correct">0</span></div>
             <div class="result-card"><span class="r-label">errors</span><span class="r-val" id="r-errors">0</span></div>
         </div>
         <div style="text-align:center">
-            <button class="mc-btn" id="play-again-btn" style="font-size:9px;padding:8px 16px;color:var(--mc-yellow);border-color:var(--mc-gold)">► play again</button>
+            <button class="mc-btn" id="play-again-btn"><i class="ph ph-play"></i> play again</button>
         </div>
     </div>
     <input id="hidden-input" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-hidden="true">

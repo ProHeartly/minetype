@@ -132,7 +132,7 @@
     border-top-color: #111;
     border-left-color: #111;
     padding: 14px 12px;
-    font-size: 14px;
+    font-size: 1.48em;
     line-height: 2.2;
     letter-spacing: .05rem;
     height: 245px;
@@ -231,7 +231,9 @@
     border-bottom-color: #1a3a1a;
     border-right-color: #1a3a1a;
     padding: 20px;
-    margin-top: 0;
+    padding-top: 30vh;
+    width: 100vw;
+    height: 100vh;
 }
 
 #result-screen.show {
@@ -239,10 +241,10 @@
 }
 
 #result-title {
-    font-size: 10px;
+    font-size: 30px;
     color: var(--mc-yellow);
     text-align: center;
-    margin-bottom: 16px;
+    margin-bottom: 32px;
     text-shadow: 1px 1px #333;
 }
 
@@ -263,7 +265,8 @@
 }
 
 .r-label {
-    font-size: 6px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 20px;
     color: var(--mc-gray);
     letter-spacing: 1px;
     margin-bottom: 6px;
@@ -271,18 +274,22 @@
 }
 
 .r-val {
-    font-size: 18px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 32px;
     color: var(--mc-green);
     display: block;
 }
 
-.r-unit {
-    font-size: 21px;
-    counter-reset: var(--mc-gray);
-}
-
 #reuslt-screen.show {
     animation: flash-in .35s ease forwards;
+}
+
+#play-again-btn {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 16px;
+    padding: 8px 16px;
+    color: var(--mc-yellow);
+    border-color: var(--mc-gold)
 }
 
 @keyframes flash-in {
