@@ -64,7 +64,7 @@ const progressFill = document.getElementById('progress-fill');
 const resultScreen = document.getElementById('result-screen');
 const mcApp = document.getElementById('mc-app');
 
-
+// This makes that modes buttons functionalbe ;-;
 document.querySelectorAll('.mc-btn[data-mode]').forEach( btn => {
     btn.addEventListener('click', () => {
         document.querySelectorAll('.mc-btn[data-mode').forEach(b => b.classList.remove('active'));
@@ -75,7 +75,7 @@ document.querySelectorAll('.mc-btn[data-mode]').forEach( btn => {
     });
 });
 
-
+// initilization thingy
 function initTest() {
     clearInterval(S.timerInterval);
     S = {
@@ -100,13 +100,14 @@ function initTest() {
     timeEl.textContent = S.mode === 'time'? S.modeVal: '-';
     timerWrap.style.display = S.mode === 'time'? 'flex': 'none';
     progressFill.style.width = '0%';
-    resultScreen.classList.remove('show');
+    resultScreen.classList.remove('show');  // hides the result and typing screen shows
     mcApp.style.display = 'block';
     hiddenInput.value = '';
     wordsWrap.style.transform = 'translateY(0)';
     requestAnimationFrame(positionCaret);
 }
 
+// as the name suggests, it renders the words
 function renderWords() {
     wordsWrap.innerHTML = '';
     S.words.forEach((word, wi) => {
@@ -124,10 +125,12 @@ function renderWords() {
     });
 }
 
+// self-explanatory
 function getWordEl(wi) {
     return wordsWrap.querySelector(`.word[data-wi="${wi}"]`);
 }
 
+// sets position for caret or that blinky thingy
 function positionCaret() {
     const wi = S.currentWord;
     const wordEl = getWordEl(wi);
@@ -159,7 +162,8 @@ function positionCaret() {
 
     const wr = wordDisplay.getBoundingClientRect();
     const scrolled = scrollToLine(wordEl, wr);
-
+    
+    // I had to re-write same thing for two conditions so I decided to make function for it :p 
     function applyCaret() {
         const wr2 = wordDisplay.getBoundingClientRect();
         const r = refEl.getBoundingClientRect();
@@ -180,6 +184,8 @@ function positionCaret() {
     }
 }
 
+// this scrolls the screen for us, that means when one word in the screen is written,
+// it scrolls to next line..
 function scrollToLine(wordEl, wr) {
     const r = wordEl.getBoundingClientRect();
     const relTop = r.top - wr.top;
@@ -192,6 +198,7 @@ function scrollToLine(wordEl, wr) {
     return false;
 }
 
+// updates letter display
 function updateLetterDisplay() {
     const wi = S.currentWord;
     const word = S.words[wi]
@@ -223,6 +230,7 @@ function updateLetterDisplay() {
     }
 }
 
+// same like before but for completed words
 function updateCompletedWord(wi) {
     const word = S.words[wi];
     const typed = S.typed[wi] || [];
@@ -255,6 +263,8 @@ function updateCompletedWord(wi) {
     }
 }
 
+// here comes the math 😭
+// it uses formula: WPM = (Total Correct Characters / 5) / (Time elapsed in minutes). as per standard wpm calculation
 function calcWPM() {
     if (!S.startTime) {
         return 0;
@@ -281,6 +291,7 @@ function calcWPM() {
     return Math.round(cc/5/mins);
 }
 
+// it uses formula: (Correct keystrokes / total keystrokes) * 100
 function calcAcc() {
     if (S.totalKS === 0) {
         return 100;
@@ -289,6 +300,7 @@ function calcAcc() {
     }
 }
 
+// Updates the stat in real time
 function updateStats() {
     const wpm = calcWPM();
     const acc = calcAcc();
@@ -299,6 +311,7 @@ function updateStats() {
     }
 }
 
+// after completing test, confetii
 function spawnParticles() {
     const colors = ['#55ff55','#ffff55','#4de6e6','#FFD700','#ff5555'];
     const area = document.getElementById('word-display');
@@ -319,6 +332,7 @@ function spawnParticles() {
     }
 }
 
+// finizlize everything and generate result :D
 function finishTest() {
     if (S.finished) {
         return;
@@ -354,6 +368,7 @@ function finishTest() {
     }, 300);
 }
 
+// STARTS THE TESTTTT
 function startTest() {
     if (S.started) {
         return;
@@ -378,6 +393,7 @@ function startTest() {
 }
 
 
+// handles the input for the words that are being written or smth YKKKKK
 function handleInput() {
     if (S.finished) {
         return;
@@ -465,6 +481,8 @@ function handleKeyDown(e) {
     }
 }
 
+
+// sets the enviroments and all
 document.getElementById('restart-btn').addEventListener('click', initTest);
 document.getElementById('play-again-btn').addEventListener('click', initTest);
 wordDisplay.addEventListener('click', () => hiddenInput.focus());
@@ -479,4 +497,6 @@ document.addEventListener('keydown', e => {
     }
 });
 
+
+// runs the initilization thigny
 initTest();

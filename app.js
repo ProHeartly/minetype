@@ -21,7 +21,7 @@ function cyclicBackground() {
     bg.style.backgroundImage = `url(${bgImg[cIdx]})`;
 }
 
-setInterval(cyclicBackground, 4000);
+setInterval(cyclicBackground, 32000);
 
 document.addEventListener('mousemove', (e) => {
     const xPercent = e.clientX / window.innerWidth;

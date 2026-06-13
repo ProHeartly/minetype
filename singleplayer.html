@@ -13,24 +13,20 @@
 </head>
 <body>
     <div id="mc-app">
-        <div id="mode-bar">
-            <button class="mc-btn active" data-mode="words" data-val="25">25 words</button>
-            <button class="mc-btn" data-mode="words" data-val="50">50 words</button>
-            <button class="mc-btn" data-mode="time" data-val="30">30s</button>
-            <button class="mc-btn" data-mode="time" data-val="60">60s</button>
-        </div>
+        <p class="very-title">StatS</p>
         <div id="stats-bar">
+            
             <div class="stat-block">
                 <span class="stat-label">wpm</span>
-                <span class="stat-val" id="wpm-live">-</span><span class="stat-unit">.</span>
+                <span class="stat-val" id="wpm-live">-</span>
             </div>
             <div class="stat-block">
                 <span class="stat-label">acc</span>
-                <span class="stat-val" id="acc-live">-</span><span class="stat-unit">%</span>
+                <span class="stat-val" id="acc-live">-</span>
             </div>
             <div class="stat-block" id="timer-wrap" style="display: none;">
                 <span class="stat-label">time</span>
-                <span class="stat-val" id="time-live">-</span><span class="stat-unit">s</span>
+                <span class="stat-val" id="time-live">-</span>
             </div>
         </div>
         <div id="progress-wrap"><div id="progress-fill"></div></div>
@@ -39,6 +35,12 @@
                 <div id="words-wrap"></div>
                 <div id="caret"></div>
             </div>
+        </div>
+        <div id="mode-bar">
+            <button class="mc-btn active" data-mode="words" data-val="25">25 words</button>
+            <button class="mc-btn" data-mode="words" data-val="50">50 words</button>
+            <button class="mc-btn" data-mode="time" data-val="30">30s</button>
+            <button class="mc-btn" data-mode="time" data-val="60">60s</button>
         </div>
         <div id="bottom-bar">
             <button class="mc-btn" id="restart-btn"><i class="ph ph-arrow-clockwise"></i> respawn</button>
