@@ -22,10 +22,17 @@
 
 #mc-app {
     background-image: url('background/dirt.webp');
+    background-position: center;
+    background-size: cover;
     height: 100vh;
     font-family: 'Press Start 2P', monospace;
     color: var(--mc-white);
     image-rendering: pixelated;
+}
+
+.bottom {
+    position: relative;
+    margin-top: 10px;
 }
 
 #mode-bar {
@@ -33,13 +40,14 @@
     gap: 8px;
     margin-bottom: 14px;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .mc-btn {
     font-family: 'Press Start 2P', monospace;
-    font-size: 14px;
-    padding: 6px 10px;
-    background: #3a3a3a;
+    font-size: 1em;
+    padding: 20px 15px;
+    background: #2B2B2B;
     border: 2px solid #666;
     border-bottom-color: #222;
     border-right-color: #222;
@@ -63,11 +71,11 @@
 }
 
 .mc-btn.active {
-    background: #4a7c3f;
-    border-color: #88cc44;
-    border-bottom-color: #2a4c1f;
+    background: #6F6F6F;
+    border-color: #ADADAD;
+    border-bottom-color: #545454;
     border-right-color: #666;
-    color: var(--mc-green);
+    color: white;
 }
 
 .very-title {
@@ -212,6 +220,7 @@
     align-items: center;
     gap: 12px;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .hint-text {
