@@ -100,7 +100,7 @@ function initTest() {
     timeEl.textContent = S.mode === 'time'? S.modeVal: '-';
     timerWrap.style.display = S.mode === 'time'? 'flex': 'none';
     progressFill.style.width = '0%';
-    resultScreen.classList.remove('show');  // hides the result and typing screen shows
+    // resultScreen.classList.remove('show');  // hides the result and typing screen shows
     mcApp.style.display = 'block';
     hiddenInput.value = '';
     wordsWrap.style.transform = 'translateY(0)';
