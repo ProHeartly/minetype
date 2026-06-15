@@ -78,6 +78,9 @@ document.querySelectorAll('.mc-btn[data-mode]').forEach( btn => {
 // initilization thingy
 function initTest() {
     clearInterval(S.timerInterval);
+    wordLineMap = [];
+    lineYMap = [];
+    currentScrollLine = 0;
     S = {
         mode: S.mode,
         modeVal: S.modeVal,
@@ -104,7 +107,10 @@ function initTest() {
     mcApp.style.display = 'block';
     hiddenInput.value = '';
     wordsWrap.style.transform = 'translateY(0)';
-    requestAnimationFrame(positionCaret);
+    requestAnimationFrame( () => requestAnimationFrame( () => {
+        measureLines();
+        positionCaret();
+    }));
 }
 
 // as the name suggests, it renders the words
@@ -128,6 +134,39 @@ function renderWords() {
 // self-explanatory
 function getWordEl(wi) {
     return wordsWrap.querySelector(`.word[data-wi="${wi}"]`);
+}
+
+
+let wordLineMap = [];
+let lineYMap = [];
+let currentScrollLine = 0;
+
+// for measuring each word's line index using offsetTop :D
+function measureLines() {
+    wordLineMap = [];
+    lineYMap = [];
+
+    const seen = new Map();
+    wordsWrap.querySelectorAll('.word').forEach((el, i) => {
+        const top = el.offsetTop;
+        if (!seen.has(top)) {
+            seen.set(top, seen.size);
+        }
+        wordLineMap[i] = seen.get(top);
+    });
+    seen.forEach((lineIdx, topPx) => {
+        lineYMap[lineIdx] = topPx;
+    });
+}
+
+// syncs the scrolling thingy actually updated version of scrollToLine
+function syncScroll() {
+    const line = wordLineMap[S.currentWord] ?? 0;
+    if (line !== currentScrollLine) {
+        currentScrollLine = line;
+        wordsWrap.style.transform = `translateY(${-(lineYMap[line] ?? 0)}px)`;
+    }
+    requestAnimationFrame(positionCaret);
 }
 
 // sets position for caret or that blinky thingy
@@ -161,42 +200,19 @@ function positionCaret() {
     }
 
     const wr = wordDisplay.getBoundingClientRect();
-    const scrolled = scrollToLine(wordEl, wr);
-    
-    // I had to re-write same thing for two conditions so I decided to make function for it :p 
-    function applyCaret() {
-        const wr2 = wordDisplay.getBoundingClientRect();
-        const r = refEl.getBoundingClientRect();
-        const x = afterRef ? (r.left - wr2.left + r.width): (r.left - wr2.left);
-        const y = r.top - wr2.top;
+    const r = refEl.getBoundingClientRect();
+    const x = afterRef ? (r.left - wr.left + r.width): (r.left - wr.left);
+    caretEl.style.height = r.height * 0.75 + 'px';
+    const y = r.top - wr.top + (r.height * 0.125);
 
-        caretEl.style.left = x + 'px';
-        caretEl.style.top = y + 'px';
-        caretEl.style.opacity = '1';
-        caretEl.classList.add('active');
-        caretEl.classList.add('blink');
-    }
-
-    if (scrolled) {
-        requestAnimationFrame(applyCaret);
-    } else {
-        applyCaret();    
-    }
+    caretEl.style.left = x + 'px';
+    caretEl.style.top = y + 'px';
+    caretEl.style.opacity = '1';
+    caretEl.classList.add('active');
+    caretEl.classList.add('blink'); 
 }
 
-// this scrolls the screen for us, that means when one word in the screen is written,
-// it scrolls to next line..
-function scrollToLine(wordEl, wr) {
-    const r = wordEl.getBoundingClientRect();
-    const relTop = r.top - wr.top;
-
-    if (relTop > r.height + 5) {
-        const cur = parseFloat(wordsWrap.style.transform.replace('translateY(','')) || 0;
-        wordsWrap.style.transform = `translateY(${cur - relTop}px)`;
-        return true;
-    }
-    return false;
-}
+// I WIPPED scrollToLine thingy :( sorry.. mr scrollToLine()! you did a great job 🫡
 
 // updates letter display
 function updateLetterDisplay() {
@@ -427,7 +443,7 @@ function handleInput() {
             return;
         }
         updateStats();
-        positionCaret();
+        syncScroll();
         return;
     }
 
@@ -473,7 +489,7 @@ function handleKeyDown(e) {
         S.typed.splice(pwi, 1);
         hiddenInput.value = S.currentLetters.join('');
         updateLetterDisplay();
-        positionCaret();
+        syncScroll();
     }
     if (e.key === 'Tab') {
         e.preventDefault();

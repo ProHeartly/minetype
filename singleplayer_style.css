@@ -28,7 +28,8 @@
     left: 0vw;
     font-family: 'Minecraftia', sans-serif;
     text-shadow: 2px 2px 0px #3f3f3f;
-    font-size: 1em;
+    font-size: .9em;
+    padding: 1em 3em;
     margin: 1em;
     text-decoration: none;
     transition: background .1s;
@@ -199,7 +200,7 @@
 
 #caret {
     position: absolute;
-    width: 2px;
+    width: 3px;
     height: 1.5em;
     background: var(--mc-white);
     pointer-events: none;
